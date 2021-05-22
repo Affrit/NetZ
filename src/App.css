@@ -13,3 +13,7 @@
   max-width: 1200px;
 }
 
+.app-wrapper-content {
+  grid-area: cont;
+  background-color: darkviolet;
+}
