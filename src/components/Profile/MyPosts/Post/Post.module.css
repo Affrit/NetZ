@@ -1,19 +1,40 @@
 .post {
     grid-area: cont;
-    background-color: darkviolet;
+    background-color: rgb(142, 105, 158);
     display: flex;
+    flex-wrap: wrap;
     margin: 10px 10px 10px 10px;
+    border: black 3px solid;
+  }
+
+  .post__wrapper {
+    margin: 10px;
   }
   
 .post__img {
-    max-width: 80px;
+    width: 80px;
     border-radius: 50%;
+    margin: 10px 10px 0 10px;
+    float: left;
   }
 
-.post__text{
-  padding-left: 20px;
+.post__text {
+  display: inline;
 }
 
 .post__button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
 
+.post__likeButton {
+  color: red;
+  margin-right: 20px;
+}
+
+.post__reposteButton {
+  color: black;
+  margin-right: 20px;
 }
