@@ -1,0 +1,19 @@
+.post {
+    grid-area: cont;
+    background-color: darkviolet;
+    display: flex;
+    margin: 10px 10px 10px 10px;
+  }
+  
+.post__img {
+    max-width: 80px;
+    border-radius: 50%;
+  }
+
+.post__text{
+  padding-left: 20px;
+}
+
+.post__button {
+
+}

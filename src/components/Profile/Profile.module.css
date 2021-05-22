@@ -1,0 +1,9 @@
+.profile {
+    grid-area: cont;
+    background-color: darkviolet;
+  }
+
+.profile__wallpaper {
+  width: 100%;
+  max-height: 300px;
+}
