@@ -4,19 +4,19 @@ const Nav = () => {
     return (
         <nav className={s.nav}>
         <div>
-          <a href="#">Profile</a>
+          <a href="/profile">Profile</a>
         </div>
         <div>
-          <a href="#">Messages</a>
+          <a href="/dialogs">Messages</a>
         </div>
         <div>
-          <a href="#">News</a>
+          <a href="/news">News</a>
         </div>
         <div>
-          <a href="#">Musik</a>
+          <a href="/musik">Musik</a>
         </div>
         <div>
-          <a href="#">Settings</a>
+          <a href="/settings">Settings</a>
         </div>
       </nav>
     )
