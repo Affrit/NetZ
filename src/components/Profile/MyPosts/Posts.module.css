@@ -2,4 +2,28 @@
     grid-area: cont;
     background-color: darkviolet;
   }
-  
+
+.title {
+  margin: 10px;
+}
+
+.newPost {
+  margin: 10px;
+}
+
+.newPost__area {
+
+}
+
+.newPost__buttons {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.newPost__button {
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
