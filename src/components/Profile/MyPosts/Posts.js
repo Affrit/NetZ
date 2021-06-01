@@ -1,7 +1,7 @@
 import Post from './Post/Post'
 import s from './Posts.module.css'
 
-const Posts = () => {
+const Posts = (props) => {
     return (
         <div className={s.item}>
           <h3 className={s.title}>New Post</h3>
@@ -14,12 +14,7 @@ const Posts = () => {
             </div>
             
           </div>
-          <Post message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit est magni nobis distinctio eligendi, aliquam mollitia, consectetur quia necessitatibus facere laborum architecto! Dolor odit quidem, nisi esse magnam quas quibusdam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit est magni nobis distinctio eligendi, aliquam mollitia, consectetur quia necessitatibus facere laborum architecto! Dolor odit quidem, nisi esse magnam quas quibusdam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit est magni nobis distinctio eligendi, aliquam mollitia, consectetur quia necessitatibus facere laborum architecto! Dolor odit quidem, nisi esse magnam quas quibusdam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit est magni nobis distinctio eligendi, aliquam mollitia, consectetur quia necessitatibus facere laborum architecto! Dolor odit quidem, nisi esse magnam quas quibusdam.' likes='33' reposts='25'/>
-          <Post message='Wow this is second post' likes='8' reposts='0'/>
-          <Post message="it's realy working!!!" likes='10' reposts='9'/>
+          {props.posts.map(post => <Post key={post.id} message={post.message} likes={post.likes} reposts={post.reposts}/>)}
         </div>
     )
 }
