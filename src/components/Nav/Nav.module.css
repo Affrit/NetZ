@@ -20,3 +20,25 @@
 .links a.active {
   color: red;
 }
+
+.friends__wrapper{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.friends__title {
+  text-align: center;
+}
+
+.friends__container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.friends__item {
+  width: 33%;
+}
+
+
+
