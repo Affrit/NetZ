@@ -74,4 +74,27 @@
   width: fit-content;
 }
 
+.newMessage__area {
+  margin: 30px 40px 10px 20px;
+}
+
+.message__textarea {
+  resize: none;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 25px;
+  outline: none;
+}
+
+.newMessage__wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.newMessage__button {
+  margin: 0 20px 20px;
+}
+
 

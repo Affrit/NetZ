@@ -11,6 +11,14 @@ const Dialogs = (props) => {
       </div>
       <div className={s.messages}>
         {props.state.messageData.map(obj => <Messages key={obj.id} text={obj.text}/>)}
+          <div className={s.newMessage}>
+            <div className={s.newMessage__area}>
+              <textarea className={s.message__textarea} placeholder="New Message" name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div className={s.newMessage__wrapper}>
+              <button className={s.newMessage__button}>Send message</button>
+            </div>
+          </div>
       </div>
     </div>
  )

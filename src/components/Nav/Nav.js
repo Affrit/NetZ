@@ -3,7 +3,6 @@ import Friend from './Friend/Friend'
 import s from './Nav.module.css'
 
 const Nav = (props) => {
-  console.log(props)
   return (
       <nav className={s.nav}>
         <div className={s.links}>
