@@ -7,6 +7,7 @@ const Posts = (props) => {
   const addPost = () => {
     let text = newPost.current.value
     props.addPost(text)
+    newPost.current.value = ''
   }
     return (
         <div className={s.item}>
@@ -19,7 +20,7 @@ const Posts = (props) => {
               <button onClick={ addPost } className={s.newPost__button}>Add post</button> <button className={s.newPost__button}>delete</button>
             </div>
           </div>
-          {props.posts.map(post => <Post key={post.id} message={post.message} likes={post.likes} reposts={post.reposts}/>)}
+          {props.posts.map(post => <Post key={post.id} message={post.message} likes={post.likes} reposts={post.reposts}/>).reverse()}
         </div>
     )
 }

@@ -1,3 +1,5 @@
+import RenderEntrieTree from '../render'
+
 let state = {
   dialogsPage: {
     dialogsData: [
@@ -42,7 +44,7 @@ export const addPost = (message) => {
     reposts: 0,
   }
   state.profilePage.posts.push(newPost)
-  console.log(state.profilePage.posts)
+  RenderEntrieTree(state, addPost)
 }
 
 export default state

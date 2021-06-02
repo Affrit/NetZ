@@ -7,11 +7,9 @@ import News from './components/News/News';
 import Musik from './components/Musik/Musik';
 import Settings from './components/Settings/Settings';
 import { Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 function App(props) {
   return (
-    <BrowserRouter>
       <div className='app-wrapper'>
         <Header />
         <Nav state={props.state.sideBar}/>
@@ -23,7 +21,6 @@ function App(props) {
           <Route path='/settings' component={Settings} />
         </div>
       </div>
-    </BrowserRouter>
   )
 }
 
