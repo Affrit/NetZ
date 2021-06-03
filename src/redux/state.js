@@ -1,4 +1,9 @@
-import RenderEntrieTree from '../render'
+let RenderEntrieTree = () => {} // функция заглушка. паттерн observer
+
+export const subscribe = (observer) => { // создали функцию, которая будет вызывана в index.js где ей аргументом передали функцию 
+  RenderEntrieTree = observer           // рендера, присвоили функции заглушке функцию рендера из index.js и теперь при вызове 
+                                       // заглушки в этом файле вызывается функция рендера из файла index.js. паттерн observer
+}
 
 let state = {
   dialogsPage: {
@@ -45,12 +50,12 @@ export const addMessage = () => {
   }
   state.dialogsPage.messageData.push(newMessage)
   state.dialogsPage.newMessageText = ''
-  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+  RenderEntrieTree(state)
 }
 
 export const updateNewMessageText = (text) => {
   state.dialogsPage.newMessageText = text
-  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+  RenderEntrieTree(state)
 }
 
 export const addPost = () => {
@@ -62,12 +67,12 @@ export const addPost = () => {
   }
   state.profilePage.posts.push(newPost)
   state.profilePage.newPostText = ''
-  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+  RenderEntrieTree(state)
 }
 
 export const updateNewPostText = (text) => {
   state.profilePage.newPostText = text
-  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+  RenderEntrieTree(state)
 }
 
 export default state
