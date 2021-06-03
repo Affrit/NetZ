@@ -14,8 +14,8 @@ function App(props) {
         <Header />
         <Nav state={props.state.sideBar}/>
         <div className='app-wrapper-content'>
-          <Route path='/profile' render={ () => <Profile state={props.state.profilePage} addPost={props.addPost}/>} />
-          <Route path='/dialogs' render={ () => <Dialogs state={props.state.dialogsPage}/>} />
+          <Route path='/profile' render={ () => <Profile state={props.state.profilePage} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>} />
+          <Route path='/dialogs' render={ () => <Dialogs state={props.state.dialogsPage} updateNewMessageText={props.updateNewMessageText} addMessage={props.addMessage}/>} />
           <Route path='/news' component={News} />
           <Route path='/musik' component={Musik} />
           <Route path='/settings' component={Settings} />

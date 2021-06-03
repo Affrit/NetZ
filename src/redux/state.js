@@ -14,6 +14,7 @@ let state = {
       {id: 2, text: 'How are you?'},
       {id: 3, text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iusto quia nemo, earum nisi autem molestiae? Necessitatibus labore ad voluptatibus odit numquam earum, eaque obcaecati quod, accusantium qui ducimus eligendi?'},
     ],
+    newMessageText: '',
   },
   profilePage: {
     posts: [
@@ -24,6 +25,7 @@ let state = {
       {id: 2, message: 'Wow this is second post', likes: 8, reposts: 0},
       {id: 3, message: "it's realy working!!!", likes: 10, reposts: 9},
     ],
+    newPostText: ''
   },
   sideBar: {
     friends: [
@@ -36,15 +38,36 @@ let state = {
   },
 }
 
-export const addPost = (message) => {
+export const addMessage = () => {
+  let newMessage = {
+    id: state.dialogsPage.messageData.length + 1,
+    text: state.dialogsPage.newMessageText,
+  }
+  state.dialogsPage.messageData.push(newMessage)
+  state.dialogsPage.newMessageText = ''
+  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+}
+
+export const updateNewMessageText = (text) => {
+  state.dialogsPage.newMessageText = text
+  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+}
+
+export const addPost = () => {
   let newPost = {
     id: state.profilePage.posts.length + 1,
-    message: message,
+    message: state.profilePage.newPostText,
     likes: 0,
     reposts: 0,
   }
   state.profilePage.posts.push(newPost)
-  RenderEntrieTree(state, addPost)
+  state.profilePage.newPostText = ''
+  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
+}
+
+export const updateNewPostText = (text) => {
+  state.profilePage.newPostText = text
+  RenderEntrieTree(state, addPost, updateNewPostText, updateNewMessageText, addMessage)
 }
 
 export default state
