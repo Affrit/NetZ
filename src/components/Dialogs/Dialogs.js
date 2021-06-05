@@ -14,7 +14,7 @@ const Dialogs = (props) => {
   const addMessage = () => {
     props.addMessage()
   }
-
+  console.log(props.state.newMessageText)
   return (
     <div className={s.dialogsWrapper}>
       <div className={s.dialogs}>
