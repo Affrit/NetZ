@@ -11,7 +11,7 @@ const RenderEntrieTree = (state) => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-      <App state={state} store={store}/>
+      <App state={state} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)} updateNewMessageText={store.updateNewMessageText.bind(store)} addMessage={store.addMessage.bind(store)}/>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
