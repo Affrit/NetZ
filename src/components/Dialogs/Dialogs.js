@@ -8,13 +8,15 @@ const Dialogs = (props) => {
 
   const changenewMessageText = () => {
     let text = newMessage.current.value
-    props.updateNewMessageText(text)
+    const action = {type: 'UPDATE-NEW-MESSAGE-TEXT', text: text}
+    props.dispatch(action)
   }
 
   const addMessage = () => {
-    props.addMessage()
+    const action = {type: 'ADD-MESSAGE'}
+    props.dispatch(action)
   }
-  console.log(props.state.newMessageText)
+  
   return (
     <div className={s.dialogsWrapper}>
       <div className={s.dialogs}>

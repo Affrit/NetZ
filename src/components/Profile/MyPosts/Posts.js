@@ -6,12 +6,14 @@ const Posts = (props) => {
   const newPost = React.useRef()
 
   const addPost = () => {
-    props.addPost()
+    const action = {type: 'ADD-POST'}
+    props.dispatch(action)
   }
 
   const changeNewPostText = () => {
     let text = newPost.current.value
-    props.updateNewPostText(text)
+    const action = {type: 'UPDATE-NEW-POST-TEXT', text: text}
+    props.dispatch(action)
   }
 
     return (
