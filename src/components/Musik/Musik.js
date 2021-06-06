@@ -2,7 +2,7 @@ import s from './Musik.module.css'
 
 const Musik = (props) => {
     return (
-        <div>
+        <div className={s.Musik}>
             Musik
         </div>
     )
