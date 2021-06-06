@@ -5,7 +5,6 @@ import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../r
 
 const Posts = (props) => {
   const newPost = React.useRef()
-
   const addPost = () => {
     const action = addPostActionCreator()
     props.dispatch(action)

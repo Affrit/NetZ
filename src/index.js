@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import store from './redux/state'
+import store from './redux/redux-store'
 
 
 const RenderEntrieTree = (state) => {
@@ -18,9 +18,9 @@ const RenderEntrieTree = (state) => {
   )
 }
 
-store.subscribe(RenderEntrieTree) // паттерн observer
+store.subscribe( () => {RenderEntrieTree(store.getState())}) // паттерн observer
 
-RenderEntrieTree(store.state)
+RenderEntrieTree(store.getState()) // store.getState() возвращает state
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
