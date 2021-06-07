@@ -36,3 +36,8 @@
   font-size: 14px;
   border-radius: 25px;
 }
+
+.posts {
+  display: flex;
+  flex-direction: column-reverse;
+}

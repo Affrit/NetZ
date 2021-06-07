@@ -2,21 +2,17 @@ import s from './Dialogs.module.css'
 import DialogsItem from './DialogsItem/DialogsItem'
 import Messages from './Messages/Messages'
 import React from 'react'
-import { addMesssageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogsReducer'
-
 
 const Dialogs = (props) => {
   let newMessage = React.useRef()
 
-  const changenewMessageText = () => {
+  const onChangenewMessageText = () => {
     let text = newMessage.current.value
-    const action = updateNewMessageTextActionCreator(text)
-    props.dispatch(action)
+    props.changenewMessageText(text)
   }
 
-  const addMessage = () => {
-    const action = addMesssageActionCreator()
-    props.dispatch(action)
+  const onAddMessage = () => {
+    props.addMessage()
   }
   
   return (
@@ -28,10 +24,10 @@ const Dialogs = (props) => {
         {props.state.messageData.map(obj => <Messages key={obj.id} text={obj.text}/>)}
           <div className={s.newMessage}>
             <div className={s.newMessage__area}>
-              <textarea onChange={changenewMessageText} ref={newMessage} value={props.state.newMessageText} className={s.message__textarea} placeholder="New Message"></textarea>
+              <textarea onChange={onChangenewMessageText} ref={newMessage} value={props.state.newMessageText} className={s.message__textarea} placeholder="New Message"></textarea>
             </div>
             <div className={s.newMessage__wrapper}>
-              <button onClick={ addMessage } className={s.newMessage__button}>Send message</button>
+              <button onClick={ onAddMessage } className={s.newMessage__button}>Send message</button>
             </div>
           </div>
       </div>
