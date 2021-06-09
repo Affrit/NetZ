@@ -1,0 +1,59 @@
+.users__wrapper {
+  margin: 30px;
+}
+
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user__left {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+.user__right {
+  display: flex;
+  border: rgb(126, 122, 122) 2px solid;
+  border-radius: 10px;
+}
+
+.user__nameStatusWrapper {
+  margin: 10px;
+  margin-right: 400px;
+}
+
+.user__cityCountryWrapper {
+  margin: 10px;
+}
+
+.user__name {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user__status {
+
+}
+
+.user__city {
+  font-weight: bold;
+}
+
+.user__country {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+
+
+
+.user__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+}
