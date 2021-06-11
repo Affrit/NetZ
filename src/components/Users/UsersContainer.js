@@ -3,7 +3,6 @@ import { followActionCreator, setUsersActionCreator, unfollowActionCreator } fro
 import Users from "./Users";
 
 let mapStateToProps = (state) => {
-  console.log(state)
   return {
     users: state.usersPage.users
   }
