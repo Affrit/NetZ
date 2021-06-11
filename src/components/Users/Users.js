@@ -5,8 +5,7 @@ import s from './Users.module.css'
 import userPhoto from '../../assets/img/userPhoto.jpg'
 
 class Users extends React.Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
     if (this.props.users.length === 0) {
       axios.get('https://social-network.samuraijs.com/api/1.0/users')
         .then(response => this.props.setUsers(response.data.items))
@@ -16,7 +15,9 @@ class Users extends React.Component {
   render() {
     return (
       <div>
-        {this.props.users.map(user => <div key={user.id} className={s.users__wrapper}>
+        {this.props.users.length === 0 ?
+        <div className={s.loading}><p>LOADING...</p></div> :
+        this.props.users.map(user => <div key={user.id} className={s.users__wrapper}>
           <div className={s.user}>
             <div className={s.user__left}>
               <img className={s.user__avatar} src={user.photos.small ?? userPhoto} alt="#" />

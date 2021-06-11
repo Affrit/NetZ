@@ -60,3 +60,11 @@
   margin: 10px;
 }
 
+.loading {
+  font-weight: bold;
+  font-size: 64px;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+
