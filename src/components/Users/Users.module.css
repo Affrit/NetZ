@@ -68,3 +68,45 @@
   width: 100%;
 }
 
+.pagesNumber__wrapper {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.pagesNumber {
+  cursor: pointer;
+}
+
+.pagesNumber:hover {
+  color: yellow;
+}
+
+.pagesNumber_active {
+  color: red;
+  cursor: pointer;
+}
+
+.showMore__wrapper {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.showMore__wrapper:hover {
+  color: yellow;
+}
+
+.showMore__icon {
+  max-width: 40px;
+  margin-right: 10px;
+}
+
+.showMore_button {
+  vertical-align: 50%;
+}

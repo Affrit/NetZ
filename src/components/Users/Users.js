@@ -1,20 +1,62 @@
 import React from 'react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
 import s from './Users.module.css'
 import userPhoto from '../../assets/img/userPhoto.jpg'
 
 class Users extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.isShowMore = false // если true в componentDidUpdate вызывается setMoreUsers и добавляются следующие пользователи иначе вызывается setUsers и выводятся только с выбранной страницы
+  }
+
   componentDidMount() {
     if (this.props.users.length === 0) {
-      axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then(response => this.props.setUsers(response.data.items))
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .then(response => {
+          this.props.setUsers(response.data.items);
+          this.props.setTotalUsersCount(response.data.totalCount);
+        })
+    }
+  }
+  
+  componentDidUpdate(prevProps) {
+    if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => this.props.setMoreUsers(response.data.items))
+    } else if (this.props.currentPage !== prevProps.currentPage) {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => this.props.setUsers(response.data.items))
     }
   }
 
+  onPageChanged = (page) => {
+    this.isShowMore = false
+    this.props.setCurrentPage(page)
+  }
+
+  onShowMoreUsers = () => {
+    this.isShowMore = true
+    this.props.setCurrentPage(this.props.currentPage + 1)
+  }
+
   render() {
+
+    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++){
+      pages.push(i)
+    }
+
     return (
       <div>
+
+        <div className={s.pagesNumber__wrapper}>
+          {pages.map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page} </span>
+          })}
+        </div>
+
         {this.props.users.length === 0 ?
         <div className={s.loading}><p>LOADING...</p></div> :
         this.props.users.map(user => <div key={user.id} className={s.users__wrapper}>
@@ -38,6 +80,11 @@ class Users extends React.Component {
           </div>
         </div>)
         }
+
+        <div onClick={this.onShowMoreUsers} className={s.showMore__wrapper}>
+          <img className={s.showMore__icon} src="https://pics.freeicons.io/uploads/icons/png/17446653211558965377-512.png" alt="#" />
+          <span className={s.showMore_button}>Показать еще 5 пользователей...</span>
+        </div>
       </div>
     )
   }
