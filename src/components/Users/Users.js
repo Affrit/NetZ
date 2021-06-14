@@ -7,7 +7,7 @@ class Users extends React.Component {
 
   constructor(props) {
     super(props)
-    this.isShowMore = false // если true в componentDidUpdate вызывается setMoreUsers и добавляются следующие пользователи иначе вызывается setUsers и выводятся только с выбранной страницы
+    this.isShowMore = false
   }
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class Users extends React.Component {
         })
     }
   }
-  
+
   componentDidUpdate(prevProps) {
     if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
@@ -48,14 +48,46 @@ class Users extends React.Component {
       pages.push(i)
     }
 
+    const showPageNumbers = () => {
+      switch(this.props.currentPage) {
+        case 1:
+          return [pages.slice(this.props.currentPage - 1, this.props.currentPage + 6).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, pages.slice(-1).map(page => {
+              return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
+            })]
+
+        case 2:
+          return [pages.slice(this.props.currentPage - 2, this.props.currentPage + 5).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, pages.slice(-1).map(page => {
+              return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
+            })]
+
+        case 3:
+          return [pages.slice(this.props.currentPage - 3, this.props.currentPage + 4).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, pages.slice(-1).map(page => {
+              return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
+            })]
+
+        case 4:
+          return [pages.slice(this.props.currentPage - 4, this.props.currentPage + 3).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active :  s.pagesNumber}>{page}</span>}), <span>...</span>, pages.slice(-1).map(page => {
+              return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
+            })]
+
+        case pages.length:
+          return [<span onClick={() => this.onPageChanged(1)} className={this.props.currentPage === 1 ? s.pagesNumber_active : s.pagesNumber}>1</span>, <span>...</span>, pages.slice(this.props.currentPage - 4).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active :  s.pagesNumber}>{page}</span>})]
+
+        default:
+          return [<span onClick={() => this.onPageChanged(1)} className={this.props.currentPage === 1 ? s.pagesNumber_active : s.pagesNumber}>1</span>, <span>...</span>, pages.slice(this.props.currentPage - 4, this.props.currentPage + 3).map(page => {
+            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, pages.slice(-1).map(page => {
+              return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
+            })]
+      }
+    }
+
     return (
       <div>
-
-        <div className={s.pagesNumber__wrapper}>
-          {pages.map(page => {
-            return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page} </span>
-          })}
-        </div>
 
         {this.props.users.length === 0 ?
         <div className={s.loading}><p>LOADING...</p></div> :
@@ -85,6 +117,13 @@ class Users extends React.Component {
           <img className={s.showMore__icon} src="https://pics.freeicons.io/uploads/icons/png/17446653211558965377-512.png" alt="#" />
           <span className={s.showMore_button}>Показать еще 5 пользователей...</span>
         </div>
+
+        <hr />
+
+        <div className={s.pagesNumber__wrapper}>
+          {showPageNumbers()}
+        </div>
+
       </div>
     )
   }

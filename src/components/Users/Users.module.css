@@ -1,5 +1,5 @@
 .users__wrapper {
-  margin: 30px;
+  margin: 25px;
 }
 
 .user {
@@ -71,12 +71,15 @@
 .pagesNumber__wrapper {
   font-size: 22px;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
 .pagesNumber {
   cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .pagesNumber:hover {
@@ -86,13 +89,15 @@
 .pagesNumber_active {
   color: red;
   cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .showMore__wrapper {
   font-size: 22px;
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
   cursor: pointer;
   text-align: center;
