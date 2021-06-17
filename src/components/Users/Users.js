@@ -75,7 +75,7 @@ const Users = (props) => {
         }
         <div onClick={props.onShowMoreUsers} className={s.showMore__wrapper}>
           <img className={s.showMore__icon} src="https://pics.freeicons.io/uploads/icons/png/17446653211558965377-512.png" alt="#" />
-          <span className={s.showMore_button}>Показать еще 5 пользователей...</span>
+          <span className={s.showMore_button}>Show more...</span>
         </div>
         <hr />
         <div className={s.pagesNumber__wrapper}>
