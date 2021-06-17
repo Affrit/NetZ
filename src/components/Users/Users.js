@@ -1,5 +1,7 @@
 import s from './Users.module.css'
 import userPhoto from '../../assets/img/userPhoto.jpg'
+import Preloader from '../common/Preloader'
+
 
 const Users = (props) => {
 
@@ -49,8 +51,7 @@ const Users = (props) => {
 
   return (
     <div>
-        {props.users.length === 0 ?
-        <div className={s.loading}><p>LOADING...</p></div> :
+        {props.isFetching ? <Preloader /> :
         props.users.map(user => <div key={user.id} className={s.users__wrapper}>
           <div className={s.user}>
             <div className={s.user__left}>

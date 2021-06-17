@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { followActionCreator, setUsersActionCreator, unfollowActionCreator, setCurrentPageActionCreator, setTotalUsersCountActionCreator, setMoreUsersActionCreator } from "../../redux/usersReducer";
+import { followActionCreator, setUsersActionCreator, unfollowActionCreator, setCurrentPageActionCreator, setTotalUsersCountActionCreator, setMoreUsersActionCreator, setIsFetchingActionCreator, } from "../../redux/usersReducer";
 import React from 'react'
 import axios from 'axios'
 import Users from './Users'
@@ -13,21 +13,31 @@ class UsersContainer extends React.Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
+      this.props.setIsFetching(true)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
         .then(response => {
           this.props.setUsers(response.data.items);
           this.props.setTotalUsersCount(response.data.totalCount);
+          this.props.setIsFetching(false);
         })
     }
   }
 
   componentDidUpdate(prevProps) {
     if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){
+      this.props.setIsFetching(true)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(response => this.props.setMoreUsers(response.data.items))
+      .then(response => {
+        this.props.setMoreUsers(response.data.items);
+        this.props.setIsFetching(false);
+      })
     } else if (this.props.currentPage !== prevProps.currentPage) {
+      this.props.setIsFetching(true)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(response => this.props.setUsers(response.data.items))
+      .then(response => {
+        this.props.setUsers(response.data.items);
+        this.props.setIsFetching(false);
+      })
     }
   }
 
@@ -52,7 +62,9 @@ class UsersContainer extends React.Component {
                follow={this.props.follow}
                unfollow={this.props.unfollow}
                onPageChanged={this.onPageChanged}
-               onShowMoreUsers={this.onShowMoreUsers}/>
+               onShowMoreUsers={this.onShowMoreUsers}
+               isFetching={this.props.isFetching}
+               setIsFetching={this.props.setIsFetching}/>
       </div>
     )
   }
@@ -64,6 +76,7 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
   }
 }
 
@@ -97,7 +110,12 @@ let mapDispatchToProps = (dispatch) => {
     setTotalUsersCount: (totalUsersCount) => {
       const action = setTotalUsersCountActionCreator(totalUsersCount)
       dispatch(action)
-    }
+    },
+
+    setIsFetching: (isFetching) => {  // true/false
+      const action = setIsFetchingActionCreator(isFetching) 
+      dispatch(action)
+    },
   }
 }
 
