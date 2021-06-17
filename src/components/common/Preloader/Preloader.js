@@ -1,4 +1,4 @@
-import fetchingLogo from '../../assets/svg/fetchingLogo.svg'
+import fetchingLogo from '../../../assets/svg/fetchingLogo.svg'
 import s from './Preloader.module.css'
 
 const Preloader = () => {
