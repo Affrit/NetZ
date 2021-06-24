@@ -5,6 +5,9 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const SET_MORE_USERS = 'SET_MORE_USERS'
 const IS_FETCHING = 'IS_FETCHING'
+const CHOOSE_PAGE_NUMBER_VALUE = 'CHOOSE_PAGE_NUMBER_VALUE'
+const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER'
+const IS_PAGE_SELECTION = 'IS_PAGE_SELECTION'
 
 
 let initialState = {
@@ -13,6 +16,8 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
+  isPageSelection: false,
+  PageNumberValue: null,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -39,28 +44,48 @@ const usersReducer = (state = initialState, action) => {
       users: [...action.users],  // перезатирает старых юзеров. users: [...state.users, ...action.users] позволит добавлять в конец 
     }
 
-    case 'SET_MORE_USERS':
+    case 'SET_MORE_USERS': // показывает больше пользователей на одной странице по нажатию кнопки 
     return {
       ...state,
       users: [...state.users, ...action.users],
     }
 
-    case 'SET_TOTAL_USERS_COUNT':
+    case 'SET_TOTAL_USERS_COUNT': // устанавливает значение количества пользователей (из ответа сервера)
     return {
       ...state,
       totalUsersCount: action.totalUsersCount,
     }
 
-    case 'SET_CURRENT_PAGE':
+    case 'SET_CURRENT_PAGE': // установить страницу на которую перешли как текущую
     return {
       ...state,
       currentPage: action.pageNumber,
+      isPageSelection: false,
     }
 
-    case 'IS_FETCHING':
+    case 'IS_FETCHING': // загружается ли контент
     return {
       ...state,
       isFetching: action.isFetching,
+    }
+
+    case 'CHOOSE_PAGE_NUMBER_VALUE': // flux для поля ввода номера страницы
+    return {
+      ...state,
+      PageNumberValue: action.choosePageNumber,
+    }
+
+    case 'SET_PAGE_NUMBER':  // установить страницу записанную в поле как текущую
+    return {
+      ...state,
+      currentPage: action.PageNumberValue,
+      PageNumberValue: null,
+    }
+
+    case 'IS_PAGE_SELECTION': // был ли клик по кнопке ввода страницы
+    return {
+      ...state,
+      isPageSelection: action.isPageSelection,
     }
 
     default: return state
@@ -75,5 +100,9 @@ export const setMoreUsers = (users) => ({type: SET_MORE_USERS, users})
 export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, pageNumber})
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount})
 export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching})
+export const setPageNumber = (PageNumberValue) => ({type: SET_PAGE_NUMBER, PageNumberValue})
+export const choosePageNumberValue = (choosePageNumber) => ({type: CHOOSE_PAGE_NUMBER_VALUE, choosePageNumber})
+export const setIsPageSelection = (isPageSelection) => ({type: IS_PAGE_SELECTION, isPageSelection})
+
 
 export default usersReducer

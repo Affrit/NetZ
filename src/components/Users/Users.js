@@ -38,7 +38,12 @@ const Users = (props) => {
         <PageControl pages={pages}
                      currentPage={props.currentPage}
                      onPageChanged={props.onPageChanged}
-                     onShowMoreUsers={props.onShowMoreUsers}/>
+                     onShowMoreUsers={props.onShowMoreUsers}
+                     choosePageNumberValue={props.choosePageNumberValue}
+                     PageNumberValue={props.PageNumberValue}
+                     setPageNumber={props.setPageNumber}
+                     isPageSelection={props.isPageSelection}
+                     setIsPageSelection={props.setIsPageSelection}/>
       </div>
   )
 }

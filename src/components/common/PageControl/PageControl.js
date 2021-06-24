@@ -1,42 +1,54 @@
+import ChoosePage from './PageButton/ChoosePage'
+import PageButton from './PageButton/PageButton'
 import s from './PageControl.module.css'
 
-const PageControl = (props) => {
+// props.pages must be array of pages
 
+const PageControl = (props) => {
   const showPageNumbers = () => {
     switch(props.currentPage) {
       case 1:
         return [props.pages.slice(props.currentPage - 1, props.currentPage + 6).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, props.pages.slice(-1).map(page => {
-            return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
-          })]
+          return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>}),
+          <span>...</span>,
+          props.pages.slice(-1).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
 
       case 2:
         return [props.pages.slice(props.currentPage - 2, props.currentPage + 5).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, props.pages.slice(-1).map(page => {
-            return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
-          })]
+          return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>}),
+          <span>...</span>,
+          props.pages.slice(-1).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
 
       case 3:
         return [props.pages.slice(props.currentPage - 3, props.currentPage + 4).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, props.pages.slice(-1).map(page => {
-            return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
-          })]
+          return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>}),
+          <span>...</span>,
+          props.pages.slice(-1).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
 
       case 4:
         return [props.pages.slice(props.currentPage - 4, props.currentPage + 3).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active :  s.pagesNumber}>{page}</span>}), <span>...</span>, props.pages.slice(-1).map(page => {
-            return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
-          })]
+          return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>}),
+          <span>...</span>,
+          props.pages.slice(-1).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
 
       case props.pages.length:
-        return [<span onClick={() => props.onPageChanged(1)} className={props.currentPage === 1 ? s.pagesNumber_active : s.pagesNumber}>1</span>, <span>...</span>, props.pages.slice(props.currentPage - 4).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active :  s.pagesNumber}>{page}</span>})]
+        return [<PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={1}/>,
+          <span>...</span>,
+        props.pages.slice(props.currentPage - 4).map(page => {
+          return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
 
       default:
-        return [<span onClick={() => props.onPageChanged(1)} className={props.currentPage === 1 ? s.pagesNumber_active : s.pagesNumber}>1</span>, <span>...</span>, props.pages.slice(props.currentPage - 4, props.currentPage + 3).map(page => {
-          return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>}), <span>...</span>, props.pages.slice(-1).map(page => {
-            return <span onClick={() => props.onPageChanged(page)} className={props.currentPage === page ? s.pagesNumber_active : s.pagesNumber}>{page}</span>
-          })]
+        return [<PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={1}/>,
+          <span>...</span>,
+          props.pages.slice(props.currentPage - 4, props.currentPage + 3).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>}),
+            <span>...</span>,
+          props.pages.slice(-1).map(page => {
+            return <PageButton currentPage={props.currentPage} onPageChanged={props.onPageChanged} page={page}/>})]
     }
   }
 
@@ -48,7 +60,7 @@ const PageControl = (props) => {
     </div>
     <hr />
     <div className={s.pagesNumber__wrapper}>
-      {showPageNumbers()}
+      {showPageNumbers()} <ChoosePage choosePageNumberValue={props.choosePageNumberValue} onPageChanged={props.onPageChanged} PageNumberValue={props.PageNumberValue} setPageNumber={props.setPageNumber} isPageSelection={props.isPageSelection} setIsPageSelection={props.setIsPageSelection} pagesCount={props.pages.length}/>
     </div>
     </>
   )

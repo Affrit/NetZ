@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, setMoreUsers, setIsFetching, } from "../../redux/usersReducer";
+import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, setMoreUsers, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection} from "../../redux/usersReducer";
 import React from 'react'
 import axios from 'axios'
 import Users from './Users'
@@ -64,7 +64,13 @@ class UsersContainer extends React.Component {
                onPageChanged={this.onPageChanged}
                onShowMoreUsers={this.onShowMoreUsers}
                isFetching={this.props.isFetching}
-               setIsFetching={this.props.setIsFetching}/>
+               setIsFetching={this.props.setIsFetching}
+               setPageNumber={this.props.setPageNumber}
+               choosePageNumberValue={this.props.choosePageNumberValue}
+               PageNumberValue={this.props.PageNumberValue}
+               isPageSelection={this.props.isPageSelection}
+               setIsPageSelection={this.props.setIsPageSelection}
+               />
       </div>
     )
   }
@@ -77,8 +83,10 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    PageNumberValue: state.usersPage.PageNumberValue,
+    isPageSelection: state.usersPage.isPageSelection,
   }
 }
 
 // second argument in connect is ation creators
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setMoreUsers, setCurrentPage, setTotalUsersCount, setIsFetching})(UsersContainer)
+export default connect(mapStateToProps, {follow, unfollow, setUsers, setMoreUsers, setCurrentPage, setTotalUsersCount, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection})(UsersContainer)
