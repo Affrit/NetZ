@@ -2,6 +2,7 @@ import s from './Users.module.css'
 import userPhoto from '../../assets/img/userPhoto.jpg'
 import Preloader from '../common/Preloader/Preloader.js'
 import PageControl from '../common/PageControl/PageControl.js'
+import { NavLink } from 'react-router-dom'
 
 
 const Users = (props) => {
@@ -17,7 +18,9 @@ const Users = (props) => {
         props.users.map(user => <div key={user.id} className={s.users__wrapper}>
           <div className={s.user}>
             <div className={s.user__left}>
+            <NavLink to={`/profile/${user.id}`} >
               <img className={s.user__avatar} src={user.photos.small ?? userPhoto} alt="#" />
+            </NavLink>
               {user.followed ?
                 <button onClick={() => props.unfollow(user.id)} className={s.user__button}>unfollow</button> :
                 <button onClick={() => props.follow(user.id)} className={s.user__button}>follow</button>}
