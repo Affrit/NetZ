@@ -3,11 +3,12 @@ import React from "react"
 import axios from 'axios'
 import { setUserProfile } from "../../redux/profileReducer";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-class ProfileContainer extends React.Component {
+class ProfileContainer extends React.Component { // 1-ый контейнер для выполнения запросов
 
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/3`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.match.params.userId ?? 2}`) // если в url нет id то 2
       .then(response => {
         this.props.setUserProfile(response.data);
       })
@@ -15,7 +16,7 @@ class ProfileContainer extends React.Component {
 
   render() {
     return (
-      <Profile {...this.props} profile={this.props.profile}/>
+      <Profile {...this.props}/> // сама презентационная компонента
     )
   }
 }
@@ -23,9 +24,9 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
-    isFetching: state.profilePage.isFetching,
   }
 }
 
+let WithURLDataContainerComponent = withRouter(ProfileContainer) // 2-ой контейнер для получения данных из url
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileContainer)
+export default connect(mapStateToProps, {setUserProfile})(WithURLDataContainerComponent) // 3-ий контейнер для общения со стором

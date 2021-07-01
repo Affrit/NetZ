@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     margin: 10px 10px 10px 10px;
     border: black 3px solid;
+    border-radius: 25px;
   }
 
   .post__wrapper {
