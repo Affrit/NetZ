@@ -8,10 +8,19 @@ import { withRouter } from "react-router-dom";
 class ProfileContainer extends React.Component { // 1-ый контейнер для выполнения запросов
 
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.match.params.userId ?? 2}`) // если в url нет id то 2
+    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.match.params.userId ?? this.props.currentAuthUserID}`) // если в url нет id то 2
+      .then(response => {
+        this.props.setUserProfile(response.data); // данные профиля из  ответа
+      })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentAuthUserID !== prevProps.currentAuthUserID) {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.currentAuthUserID}`)
       .then(response => {
         this.props.setUserProfile(response.data);
       })
+    }
   }
 
   render() {
@@ -24,6 +33,7 @@ class ProfileContainer extends React.Component { // 1-ый контейнер д
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
+    currentAuthUserID: state.auth.id,
   }
 }
 
