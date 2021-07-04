@@ -37,9 +37,4 @@ export const profileAPI = {
     return axiosInstance.get(`profile/${userId}`)
       .then(response => response.data)
    },
-
-   getCurrentAuthProfile(currentAuthUserID) {
-    return axiosInstance.get(`profile/${currentAuthUserID}`)
-      .then(response => response.data)
-   },
 }

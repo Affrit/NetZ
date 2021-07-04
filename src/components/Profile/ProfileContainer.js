@@ -9,19 +9,26 @@ class ProfileContainer extends React.Component { // 1-ый контейнер д
 
   componentDidMount() {
     if (this.props.match.params.userId){
-      profileAPI.getUserProfile(this.props.match.params.userId)
+      profileAPI.getUserProfile(this.props.match.params.userId ?? this.props.currentAuthUserID) // если в url есть id то показать этого пользователя, иначе показать залогиненого. !!! доработать случай без id и без залогиненого (отправить регестрироваться/логиниться)
       .then(data => {
         this.props.setUserProfile(data); // данные профиля из  ответа
       })
-    } else profileAPI.getCurrentAuthProfile(this.props.currentAuthUserID)
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentAuthUserID !== prevProps.currentAuthUserID) {
-      profileAPI.getCurrentAuthProfile(this.props.currentAuthUserID)
+      profileAPI.getUserProfile(this.props.currentAuthUserID)
       .then(data => {
         this.props.setUserProfile(data);
       })
+    }
+
+    if (this.props.match.params.userId !== prevProps.match.params.userId) { // если поменялся id в url то показать нового
+      profileAPI.getUserProfile(this.props.match.params.userId ?? this.props.currentAuthUserID) // если новый id null/undefined показать залогиненого. !!! доработать случай без id и без залогиненого (отправить регестрироваться/логиниться)
+        .then(data => {
+        this.props.setUserProfile(data); // данные профиля из  ответа
+        })
     }
   }
 
