@@ -3,7 +3,7 @@ import userPhoto from '../../assets/img/userPhoto.jpg'
 import Preloader from '../common/Preloader/Preloader.js'
 import PageControl from '../common/PageControl/PageControl.js'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
+import { usersAPI } from '../../api/api'
 
 
 const Users = (props) => {
@@ -24,28 +24,20 @@ const Users = (props) => {
             </NavLink>
               {user.followed ?
                 <button onClick={() => {
-                  axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                    withCredentials: true, 
-                    headers: {
-                      "API-KEY": "7a629a07-0dc7-4ccf-93da-71b5ec4ded63"
-                    }})
-                  .then(response => {
-                    if (response.data.resultCode === 0) {
-                      props.unfollow(user.id)
-                    }})
-                }} className={s.user__button}>unfollow</button> :
+                  usersAPI.unfollowUser(user.id)
+                    .then(data => {
+                      if (data.resultCode === 0) {
+                        props.unfollow(user.id)
+                      }})
+                  }} className={s.user__button}>unfollow</button> :
 
                 <button onClick={() => {
-                  axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                    withCredentials: true,
-                    headers: {
-                      "API-KEY": "7a629a07-0dc7-4ccf-93da-71b5ec4ded63"
-                    }})
-                  .then(response => {
-                    if (response.data.resultCode === 0) {
-                      props.follow(user.id)
-                    }})
-                  }} className={s.user__button}>follow</button>}
+                  usersAPI.followUser(user.id)
+                    .then(data => {
+                      if (data.resultCode === 0) {
+                        props.follow(user.id)
+                      }})
+                    }} className={s.user__button}>follow</button>}
             </div>
             <div className={s.user__info}>
               <div className={s.user__nameStatusWrapper}>

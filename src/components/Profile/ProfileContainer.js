@@ -1,24 +1,26 @@
 import Profile from "./Profile"
 import React from "react"
-import axios from 'axios'
 import { setUserProfile } from "../../redux/profileReducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { profileAPI } from '../../api/api'
 
 class ProfileContainer extends React.Component { // 1-ый контейнер для выполнения запросов
 
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.match.params.userId ?? this.props.currentAuthUserID}`, {withCredentials: true}) // если в url нет id то 2
-      .then(response => {
-        this.props.setUserProfile(response.data); // данные профиля из  ответа
+    if (this.props.match.params.userId){
+      profileAPI.getUserProfile(this.props.match.params.userId)
+      .then(data => {
+        this.props.setUserProfile(data); // данные профиля из  ответа
       })
+    } else profileAPI.getCurrentAuthProfile(this.props.currentAuthUserID)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentAuthUserID !== prevProps.currentAuthUserID) {
-      axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.currentAuthUserID}`, {withCredentials: true})
-      .then(response => {
-        this.props.setUserProfile(response.data);
+      profileAPI.getCurrentAuthProfile(this.props.currentAuthUserID)
+      .then(data => {
+        this.props.setUserProfile(data);
       })
     }
   }
