@@ -1,6 +1,7 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_IS_FETCHING = 'SET_IS_FETCHING'
 
 let initialState = {
   posts: [
@@ -12,7 +13,8 @@ let initialState = {
     {id: 3, message: "it's realy working!!!", likes: 10, reposts: 9},
   ],
   newPostText: '',
-  profile: null, 
+  profile: null,
+  isFetching: false,
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -42,6 +44,12 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.profile
       }
+
+    case 'SET_IS_FETCHING': // загружается ли контент
+    return {
+      ...state,
+      isFetching: action.isFetching,
+    }
       
     default: return state
   }
@@ -50,5 +58,6 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, text})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 
 export default profileReducer
