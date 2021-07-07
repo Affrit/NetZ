@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, setMoreUsers, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection} from "../../redux/usersReducer";
+import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, setMoreUsers, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress} from "../../redux/usersReducer";
 import React from 'react'
 import Users from './Users'
 import { usersAPI } from '../../api/api'
@@ -65,6 +65,8 @@ class UsersContainer extends React.Component {
                onShowMoreUsers={this.onShowMoreUsers}
                isFetching={this.props.isFetching}
                setIsFetching={this.props.setIsFetching}
+               isFollowInProgress={this.props.isFollowInProgress}
+               setIsFollowInProgress={this.props.setIsFollowInProgress}
                setPageNumber={this.props.setPageNumber}
                choosePageNumberValue={this.props.choosePageNumberValue}
                PageNumberValue={this.props.PageNumberValue}
@@ -83,10 +85,11 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    isFollowInProgress: state.usersPage.isFollowInProgress,
     PageNumberValue: state.usersPage.PageNumberValue,
     isPageSelection: state.usersPage.isPageSelection,
   }
 }
 
 // second argument in connect is ation creators
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setMoreUsers, setCurrentPage, setTotalUsersCount, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection})(UsersContainer)
+export default connect(mapStateToProps, {follow, unfollow, setUsers, setMoreUsers, setCurrentPage, setTotalUsersCount, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress})(UsersContainer)

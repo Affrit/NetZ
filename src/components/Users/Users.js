@@ -12,7 +12,7 @@ const Users = (props) => {
   for (let i = 1; i <= pagesCount; i++){
     pages.push(i)
   }
-
+  console.log(props)
   return (
     <div>
         {props.isFetching ? <Preloader /> :
@@ -23,20 +23,30 @@ const Users = (props) => {
               <img className={s.user__avatar} src={user.photos.small ?? userPhoto} alt="#" />
             </NavLink>
               {user.followed ?
-                <button onClick={() => {
+                <button disabled={props.isFollowInProgress.some(id => id === user.id)} onClick={() => {
+                  props.setIsFollowInProgress(true, user.id)
                   usersAPI.unfollowUser(user.id)
                     .then(data => {
                       if (data.resultCode === 0) {
                         props.unfollow(user.id)
-                      }})
+                      }
+                    }).finally(res => {
+                      props.setIsFollowInProgress(false, user.id)
+                    })
+            
                   }} className={s.user__button}>unfollow</button> :
 
-                <button onClick={() => {
+                <button disabled={props.isFollowInProgress.some(id => id === user.id)} onClick={() => {
+                  props.setIsFollowInProgress(true, user.id)
                   usersAPI.followUser(user.id)
                     .then(data => {
                       if (data.resultCode === 0) {
                         props.follow(user.id)
-                      }})
+                      }
+                    }).finally(res => {
+                      props.setIsFollowInProgress(false, user.id)
+                    })
+                      
                     }} className={s.user__button}>follow</button>}
             </div>
             <div className={s.user__info}>
