@@ -1,8 +1,7 @@
 import { connect } from "react-redux";
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, setMoreUsers, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress} from "../../redux/usersReducer";
+import { follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress, getUsersThunkCreator, getMoreUsersThunkCreator} from "../../redux/usersReducer";
 import React from 'react'
 import Users from './Users'
-import { usersAPI } from '../../api/api'
 
 class UsersContainer extends React.Component {
 
@@ -12,32 +11,14 @@ class UsersContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.users.length === 0) {
-      this.props.setIsFetching(true)
-      usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        .then(data => {
-          this.props.setUsers(data.items);
-          this.props.setTotalUsersCount(data.totalCount);
-          this.props.setIsFetching(false);
-        })
-    }
+    this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
   }
 
   componentDidUpdate(prevProps) {
-    if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){
-      this.props.setIsFetching(true)
-      usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-      .then(data => {
-        this.props.setMoreUsers(data.items);
-        this.props.setIsFetching(false);
-      })
-    } else if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.setIsFetching(true)
-      usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-      .then(data => {
-        this.props.setUsers(data.items);
-        this.props.setIsFetching(false);
-      })
+    if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){ // текущая страница измененена нажатием 'showMore'
+      this.props.getMoreUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+    } else if (this.props.currentPage !== prevProps.currentPage) { // если текущая страница измененена
+      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
   }
 
@@ -92,4 +73,4 @@ let mapStateToProps = (state) => {
 }
 
 // second argument in connect is ation creators
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setMoreUsers, setCurrentPage, setTotalUsersCount, setIsFetching, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress})(UsersContainer)
+export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress, getUsersThunkCreator, getMoreUsersThunkCreator})(UsersContainer)
