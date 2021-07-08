@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress, getUsersThunkCreator, getMoreUsersThunkCreator} from "../../redux/usersReducer";
+import { follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, getUsers, getMoreUsers} from "../../redux/usersReducer";
 import React from 'react'
 import Users from './Users'
 
@@ -11,17 +11,18 @@ class UsersContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+    this.props.getUsers(this.props.currentPage, this.props.pageSize) // getUsers is thunk
   }
 
   componentDidUpdate(prevProps) {
     if ((this.props.currentPage !== prevProps.currentPage) && this.isShowMore){ // текущая страница измененена нажатием 'showMore'
-      this.props.getMoreUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+      this.props.getMoreUsers(this.props.currentPage, this.props.pageSize) // getMoreUsers is thunk
     } else if (this.props.currentPage !== prevProps.currentPage) { // если текущая страница измененена
-      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+      this.props.getUsers(this.props.currentPage, this.props.pageSize) // getUsers is thunk
     }
   }
 
+  // это надо засунуть в редюсер
   onPageChanged = (page) => {
     this.isShowMore = false
     this.props.setCurrentPage(page)
@@ -73,4 +74,4 @@ let mapStateToProps = (state) => {
 }
 
 // second argument in connect is ation creators
-export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, setIsFollowInProgress, getUsersThunkCreator, getMoreUsersThunkCreator})(UsersContainer)
+export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, getUsers, getMoreUsers})(UsersContainer)

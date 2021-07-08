@@ -117,9 +117,9 @@ export const setPageNumber = (PageNumberValue) => ({ type: SET_PAGE_NUMBER, Page
 export const choosePageNumberValue = (choosePageNumber) => ({ type: CHOOSE_PAGE_NUMBER_VALUE, choosePageNumber })
 export const setIsPageSelection = (isPageSelection) => ({ type: IS_PAGE_SELECTION, isPageSelection })
 
-// thunks
+// thunks creators returns thunk function
 
-export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
   dispatch(setIsFetching(true))
   usersAPI.getUsers(currentPage, pageSize)
     .then(data => {
@@ -129,7 +129,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
     })
 }
 
-export const getMoreUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+export const getMoreUsers = (currentPage, pageSize) => (dispatch) => {
   dispatch(setIsFetching(true))
   usersAPI.getUsers(currentPage, pageSize)
     .then(data => {
