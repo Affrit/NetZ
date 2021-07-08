@@ -87,7 +87,7 @@ const usersReducer = (state = initialState, action) => {
         PageNumberValue: action.choosePageNumber,
       }
 
-    case 'SET_PAGE_NUMBER':  // установить страницу записанную в поле как текущую
+    case 'SET_PAGE_NUMBER':  // установить страницу записанную в поле ввода как текущую
       return {
         ...state,
         currentPage: action.PageNumberValue,
@@ -105,8 +105,8 @@ const usersReducer = (state = initialState, action) => {
 }
 
 // Action Creators
-export const follow = (userID) => ({ type: FOLLOW, userID })
-export const unfollow = (userID) => ({ type: UNFOLLOW, userID })
+export const followAccepted = (userID) => ({ type: FOLLOW, userID })
+export const unfollowAccepted = (userID) => ({ type: UNFOLLOW, userID })
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setMoreUsers = (users) => ({ type: SET_MORE_USERS, users })
 export const setCurrentPage = (pageNumber) => ({ type: SET_CURRENT_PAGE, pageNumber })
@@ -135,6 +135,30 @@ export const getMoreUsersThunkCreator = (currentPage, pageSize) => (dispatch) =>
     .then(data => {
       dispatch(setMoreUsers(data.items))
       dispatch(setIsFetching(false))
+    })
+}
+
+export const follow = (userID) => (dispatch) => {
+  dispatch(setIsFollowInProgress(true, userID))
+  usersAPI.followUser(userID)
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(followAccepted(userID))
+      }
+    }).finally(res => {
+      dispatch(setIsFollowInProgress(false, userID))
+    })
+}
+
+export const unfollow = (userID) => (dispatch) => {
+  dispatch(setIsFollowInProgress(true, userID))
+  usersAPI.unfollowUser(userID)
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowAccepted(userID))
+      }
+    }).finally(res => {
+      dispatch(setIsFollowInProgress(false, userID))
     })
 }
 

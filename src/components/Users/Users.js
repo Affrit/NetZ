@@ -3,50 +3,31 @@ import userPhoto from '../../assets/img/userPhoto.jpg'
 import Preloader from '../common/Preloader/Preloader.js'
 import PageControl from '../common/PageControl/PageControl.js'
 import { NavLink } from 'react-router-dom'
-import { usersAPI } from '../../api/api'
-
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
   let pages = []
-  for (let i = 1; i <= pagesCount; i++){
+  for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
   return (
     <div>
-        {props.isFetching ? <Preloader /> :
+      
+      {props.isFetching ? <Preloader /> :
         props.users.map(user => <div key={user.id} className={s.users__wrapper}>
           <div className={s.user}>
             <div className={s.user__left}>
-            <NavLink to={`/profile/${user.id}`} >
-              <img className={s.user__avatar} src={user.photos.small ?? userPhoto} alt="#" />
-            </NavLink>
-              {user.followed ?
-                <button disabled={props.isFollowInProgress.some(id => id === user.id)} onClick={() => {
-                  props.setIsFollowInProgress(true, user.id)
-                  usersAPI.unfollowUser(user.id)
-                    .then(data => {
-                      if (data.resultCode === 0) {
-                        props.unfollow(user.id)
-                      }
-                    }).finally(res => {
-                      props.setIsFollowInProgress(false, user.id)
-                    })
-            
-                  }} className={s.user__button}>unfollow</button> :
 
-                <button disabled={props.isFollowInProgress.some(id => id === user.id)} onClick={() => {
-                  props.setIsFollowInProgress(true, user.id)
-                  usersAPI.followUser(user.id)
-                    .then(data => {
-                      if (data.resultCode === 0) {
-                        props.follow(user.id)
-                      }
-                    }).finally(res => {
-                      props.setIsFollowInProgress(false, user.id)
-                    })
-                      
-                    }} className={s.user__button}>follow</button>}
+              <NavLink to={`/profile/${user.id}`} >
+                <img className={s.user__avatar} src={user.photos.small ?? userPhoto} alt="#" />
+              </NavLink>
+
+              {user.followed ?
+                <button disabled={props.isFollowInProgress.some(id => id === user.id)}
+                  onClick={() => props.unfollow(user.id)} className={s.user__button}>unfollow</button> :
+                <button disabled={props.isFollowInProgress.some(id => id === user.id)}
+                  onClick={() => props.follow(user.id)} className={s.user__button}>follow</button>}
+
             </div>
             <div className={s.user__info}>
               <div className={s.user__nameStatusWrapper}>
@@ -60,17 +41,17 @@ const Users = (props) => {
             </div>
           </div>
         </div>)
-        }
-        <PageControl pages={pages}
-                     currentPage={props.currentPage}
-                     onPageChanged={props.onPageChanged}
-                     onShowMoreUsers={props.onShowMoreUsers}
-                     choosePageNumberValue={props.choosePageNumberValue}
-                     PageNumberValue={props.PageNumberValue}
-                     setPageNumber={props.setPageNumber}
-                     isPageSelection={props.isPageSelection}
-                     setIsPageSelection={props.setIsPageSelection}/>
-      </div>
+      }
+      <PageControl pages={pages}
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+        onShowMoreUsers={props.onShowMoreUsers}
+        choosePageNumberValue={props.choosePageNumberValue}
+        PageNumberValue={props.PageNumberValue}
+        setPageNumber={props.setPageNumber}
+        isPageSelection={props.isPageSelection}
+        setIsPageSelection={props.setIsPageSelection} />
+    </div>
   )
 }
 
