@@ -2,7 +2,6 @@ import s from './Dialogs.module.css'
 import DialogsItem from './DialogsItem/DialogsItem'
 import Messages from './Messages/Messages'
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 
 const Dialogs = (props) => {
   let newMessage = React.useRef()
@@ -13,7 +12,6 @@ const Dialogs = (props) => {
   }
 
   return (
-    !props.isAuth ? <Redirect to='/login' /> :
       <div className={s.dialogsWrapper}>
         <div className={s.dialogs}>
           {props.dialogsPage.dialogsData.map(obj => <DialogsItem key={obj.id} name={obj.name} avatar={obj.avatar} id={obj.id} />)}

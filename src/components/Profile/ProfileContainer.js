@@ -3,11 +3,14 @@ import React from "react"
 import { getUserProfile } from "../../redux/profileReducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component { // 1-ый контейнер для выполнения запросов
 
   componentDidMount() {
+    if (this.props.match.params.userId || this.props.currentAuthUserID) { // если убрать то ошибка при обновлении страницы f5
       this.props.getUserProfile(this.props.match.params.userId, this.props.currentAuthUserID)
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -21,7 +24,7 @@ class ProfileContainer extends React.Component { // 1-ый контейнер д
 
   render() {
     return (
-      <Profile {...this.props}/> // сама презентационная компонента
+      <Profile {...this.props} /> // сама презентационная компонента
     )
   }
 }
@@ -31,10 +34,13 @@ let mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     currentAuthUserID: state.auth.id,
     isFetching: state.profilePage.isFetching,
+    isFetchingAuth: state.auth.isFetching,
     isAuth: state.auth.isAuth,
   }
 }
 
-let WithURLDataContainerComponent = withRouter(ProfileContainer) // 2-ой контейнер для получения данных из url
+let WithAuthRedirectComponent = withAuthRedirect(ProfileContainer) // 2-ой контейнер для redirect
 
-export default connect(mapStateToProps, {getUserProfile})(WithURLDataContainerComponent) // 3-ий контейнер для общения со стором
+let WithURLDataContainerComponent = withRouter(WithAuthRedirectComponent) // 3-ий контейнер для получения данных из url
+
+export default connect(mapStateToProps, { getUserProfile })(WithURLDataContainerComponent) // 4-ый контейнер для общения со стором
