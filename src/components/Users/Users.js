@@ -49,6 +49,7 @@ const Users = (props) => {
         choosePageNumberValue={props.choosePageNumberValue}
         PageNumberValue={props.PageNumberValue}
         setPageNumber={props.setPageNumber}
+        setCurrentPage={props.setCurrentPage}
         isPageSelection={props.isPageSelection}
         setIsPageSelection={props.setIsPageSelection} />
     </div>
