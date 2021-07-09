@@ -12,7 +12,7 @@ const Users = (props) => {
   }
   return (
     <div>
-      
+
       {props.isFetching ? <Preloader /> :
         props.users.map(user => <div key={user.id} className={s.users__wrapper}>
           <div className={s.user}>

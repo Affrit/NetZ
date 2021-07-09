@@ -31,6 +31,7 @@ let mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     currentAuthUserID: state.auth.id,
     isFetching: state.profilePage.isFetching,
+    isAuth: state.auth.isAuth,
   }
 }
 

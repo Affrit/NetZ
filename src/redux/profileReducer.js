@@ -70,7 +70,7 @@ export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetchin
 
 export const getUserProfile = (matchUserID, currentAuthUserID) => (dispatch) => {
   dispatch(setIsFetching(true))
-  profileAPI.getUserProfile(matchUserID ?? currentAuthUserID) // если в url есть id то показать этого пользователя, иначе показать залогиненого. !!! доработать случай без id и без залогиненого (отправить регестрироваться/логиниться)
+  profileAPI.getUserProfile(matchUserID ?? currentAuthUserID) // если в url есть id то показать этого пользователя, иначе показать залогиненого.
     .then(data => {
       dispatch(setUserProfile(data)) // данные профиля из  ответа
       dispatch(setIsFetching(false)) 

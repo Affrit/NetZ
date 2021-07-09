@@ -8,6 +8,7 @@ import NavContainer from './components/Nav/NavContainer';
 import UsersContainer from './components/Users/UsersContainer'
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/login/Login';
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
           <Route path='/news' component={News} />
           <Route path='/musik' component={Musik} />
           <Route path='/settings' component={Settings} />
+          <Route path='/login' component={Login} />
         </div>
       </div>
   )

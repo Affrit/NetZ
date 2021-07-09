@@ -2,6 +2,7 @@ import s from './Dialogs.module.css'
 import DialogsItem from './DialogsItem/DialogsItem'
 import Messages from './Messages/Messages'
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 const Dialogs = (props) => {
   let newMessage = React.useRef()
@@ -11,28 +12,25 @@ const Dialogs = (props) => {
     props.changenewMessageText(text)
   }
 
-  const onAddMessage = () => {
-    props.addMessage()
-  }
-  
   return (
-    <div className={s.dialogsWrapper}>
-      <div className={s.dialogs}>
-        {props.state.dialogsData.map(obj => <DialogsItem key={obj.id} name={obj.name} avatar={obj.avatar} id={obj.id}/>)}
-      </div>
-      <div className={s.messages}>
-        {props.state.messageData.map(obj => <Messages key={obj.id} text={obj.text}/>)}
+    !props.isAuth ? <Redirect to='/login' /> :
+      <div className={s.dialogsWrapper}>
+        <div className={s.dialogs}>
+          {props.dialogsPage.dialogsData.map(obj => <DialogsItem key={obj.id} name={obj.name} avatar={obj.avatar} id={obj.id} />)}
+        </div>
+        <div className={s.messages}>
+          {props.dialogsPage.messageData.map(obj => <Messages key={obj.id} text={obj.text} />)}
           <div className={s.newMessage}>
             <div className={s.newMessage__area}>
-              <textarea onChange={onChangenewMessageText} ref={newMessage} value={props.state.newMessageText} className={s.message__textarea} placeholder="New Message"></textarea>
+              <textarea onChange={onChangenewMessageText} ref={newMessage} value={props.dialogsPage.newMessageText} className={s.message__textarea} placeholder="New Message"></textarea>
             </div>
             <div className={s.newMessage__wrapper}>
-              <button onClick={ onAddMessage } className={s.newMessage__button}>Send message</button>
+              <button onClick={props.addMessage} className={s.newMessage__button}>Send message</button>
             </div>
           </div>
+        </div>
       </div>
-    </div>
- )
+  )
 }
 
 export default Dialogs
