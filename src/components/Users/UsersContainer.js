@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { follow, unfollow, setCurrentPage, setPageNumber, choosePageNumberValue, setIsPageSelection, onShowMoreUsers, getUsers, getMoreUsers} from "../../redux/usersReducer";
 import React from 'react'
 import Users from './Users'
+import { compose } from "redux";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component {
 
@@ -40,5 +42,8 @@ let mapStateToProps = (state) => {
   }
 }
 
-// second argument in connect is ation creators
-export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, setPageNumber, onShowMoreUsers, choosePageNumberValue, setIsPageSelection, getUsers, getMoreUsers})(UsersContainer)
+// second argument in connect is action creators
+export default compose(
+  connect(mapStateToProps, {follow, unfollow, setCurrentPage, setPageNumber, onShowMoreUsers, choosePageNumberValue, setIsPageSelection, getUsers, getMoreUsers}),
+  withAuthRedirect,
+)(UsersContainer)

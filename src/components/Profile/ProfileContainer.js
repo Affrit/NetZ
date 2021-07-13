@@ -4,6 +4,7 @@ import { getUserProfile } from "../../redux/profileReducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component { // 1-ый контейнер для выполнения запросов
 
@@ -34,13 +35,11 @@ let mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     currentAuthUserID: state.auth.id,
     isFetching: state.profilePage.isFetching,
-    isFetchingAuth: state.auth.isFetching,
-    isAuth: state.auth.isAuth,
   }
 }
 
-let WithAuthRedirectComponent = withAuthRedirect(ProfileContainer) // 2-ой контейнер для redirect
-
-let WithURLDataContainerComponent = withRouter(WithAuthRedirectComponent) // 3-ий контейнер для получения данных из url
-
-export default connect(mapStateToProps, { getUserProfile })(WithURLDataContainerComponent) // 4-ый контейнер для общения со стором
+export default compose(
+  connect(mapStateToProps, { getUserProfile }), // 4-ый контейнер для общения со стором
+  withRouter, // 3-ий контейнер для получения данных из url
+  withAuthRedirect, // 2-ой контейнер для redirect
+)(ProfileContainer)
