@@ -4,10 +4,11 @@ import photo from '../../assets/img/userPhoto.jpg'
 
 const Header = (props) => {
 
-  let currentUser = <>
-    <img className={s.userPhoto} src={props.currentAuthUser?.photos?.small ?? photo} alt="#"/>
-    <span>{props.login}</span>
-  </>
+  let currentUser =
+    <>
+      <img className={s.userPhoto} src={props.currentAuthUser?.photos?.small ?? photo} alt="#" />
+      <span>{props.login}</span>
+    </>
 
   return (
     <header className={s.header}>
@@ -17,8 +18,8 @@ const Header = (props) => {
         {props.isAuth ? currentUser : <NavLink to={'/login'} className={s.login__button}>Login</NavLink>}
       </div>
     </header>
-      
-    )
+
+  )
 }
 
 export default Header
