@@ -1,6 +1,6 @@
 import Profile from "./Profile"
 import React from "react"
-import { getUserProfile } from "../../redux/profileReducer";
+import { getUserProfile, getUserStatus, updateUserStatus } from "../../redux/profileReducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
@@ -11,6 +11,7 @@ class ProfileContainer extends React.Component { // 1-ый контейнер д
   componentDidMount() {
     if (this.props.match.params.userId || this.props.currentAuthUserID) { // если убрать то ошибка при обновлении страницы f5
       this.props.getUserProfile(this.props.match.params.userId, this.props.currentAuthUserID)
+      this.props.getUserStatus(this.props.match.params.userId, this.props.currentAuthUserID)
     }
   }
 
@@ -33,13 +34,14 @@ class ProfileContainer extends React.Component { // 1-ый контейнер д
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
-    currentAuthUserID: state.auth.id,
+    status: state.profilePage.status,
     isFetching: state.profilePage.isFetching,
+    currentAuthUserID: state.auth.id,
   }
 }
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile }), // 4-ый контейнер для общения со стором
+  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }), // 4-ый контейнер для общения со стором
   withRouter, // 3-ий контейнер для получения данных из url
   withAuthRedirect, // 2-ой контейнер для redirect
 )(ProfileContainer)

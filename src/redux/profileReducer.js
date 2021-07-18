@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
+const SET_STATUS = 'SET_STATUS'
 
 let initialState = {
   posts: [
@@ -19,6 +20,7 @@ let initialState = {
   newPostText: '',
   profile: null,
   isFetching: false,
+  status: '',
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -49,6 +51,12 @@ const profileReducer = (state = initialState, action) => {
         profile: action.profile
       }
 
+    case 'SET_STATUS':
+      return {
+        ...state,
+        status: action.status
+      }
+
     case 'SET_IS_FETCHING': // загружается ли контент
       return {
         ...state,
@@ -59,21 +67,43 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-// ActionCreators
+// ActionCreators:
 // убрать ActionCreator в названии
 export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, text })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
+export const setUserStatus = (status) => ({ type: SET_STATUS, status })
 
-// thunks
+// thunks:
 
 export const getUserProfile = (matchUserID, currentAuthUserID) => (dispatch) => {
   dispatch(setIsFetching(true))
   profileAPI.getUserProfile(matchUserID ?? currentAuthUserID) // если в url есть id то показать этого пользователя, иначе показать залогиненого.
     .then(data => {
       dispatch(setUserProfile(data)) // данные профиля из  ответа
-      dispatch(setIsFetching(false)) 
+      dispatch(setIsFetching(false))
+    })
+}
+
+export const getUserStatus = (userId, currentAuthUserID) => (dispatch) => {
+  dispatch(setIsFetching(true))
+  profileAPI.getUserStatus(userId ?? currentAuthUserID)
+    .then(response => {
+      dispatch(setUserStatus(response)) // response is a string with status
+      dispatch(setIsFetching(false))
+    })
+}
+
+export const updateUserStatus = (status) => (dispatch) => {
+  dispatch(setIsFetching(true))
+  profileAPI.updateUserStatus(status)
+    .then(response => {
+      console.log(response.data)
+      if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status)) // response is a string with status
+      }
+      dispatch(setIsFetching(false))
     })
 }
 

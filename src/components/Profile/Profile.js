@@ -7,7 +7,8 @@ const Profile = (props) => {
   if (props.isFetching) return <Preloader />
   return (
       <div className={s.profile}>
-        <ProfileInfo profile={props.profile} isFetching={props.isFetching} />
+        <ProfileInfo profile={props.profile} isFetching={props.isFetching} 
+        status={props.status} updateUserStatus={props.updateUserStatus}/>
         <PostsContainer />
       </div>
   )
