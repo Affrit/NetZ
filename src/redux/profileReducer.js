@@ -79,7 +79,7 @@ export const setUserStatus = (status) => ({ type: SET_STATUS, status })
 
 export const getUserProfile = (matchUserID, currentAuthUserID) => (dispatch) => {
   dispatch(setIsFetching(true))
-  profileAPI.getUserProfile(matchUserID ?? currentAuthUserID) // если в url есть id то показать этого пользователя, иначе показать залогиненого.
+  profileAPI.getUserProfile(matchUserID ?? currentAuthUserID ?? '') // если в url есть id то показать этого пользователя, иначе показать залогиненого.
     .then(data => {
       dispatch(setUserProfile(data)) // данные профиля из  ответа
       dispatch(setIsFetching(false))
@@ -99,7 +99,6 @@ export const updateUserStatus = (status) => (dispatch) => {
   dispatch(setIsFetching(true))
   profileAPI.updateUserStatus(status)
     .then(response => {
-      console.log(response.data)
       if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status)) // response is a string with status
       }

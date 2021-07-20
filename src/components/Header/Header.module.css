@@ -25,13 +25,29 @@
 .login__button {
   text-decoration: none;
   color: yellow;
+  background-color: transparent;
+  border-radius: 10px;
 }
 
 .login__button:hover {
   color: red;
+  cursor: pointer;
 }
 
 .userPhoto {
-  width: 30px;
+  width: 40px;
   margin-right: 10px;
+}
+
+.currentUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.currentUser__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
