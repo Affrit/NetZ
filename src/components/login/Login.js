@@ -1,8 +1,8 @@
+import s from './Login.module.css'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { login } from '../../redux/authReducer'
-import s from './Login.module.css'
 
 const LoginForm = (props) => {
   return (
