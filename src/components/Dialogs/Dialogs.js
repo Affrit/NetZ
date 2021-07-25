@@ -3,12 +3,19 @@ import DialogsItem from './DialogsItem/DialogsItem'
 import Messages from './Messages/Messages'
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import CustomField from '../common/FormsControls/Textarea'
+import { requiredField, maxLength } from '../../utils/validators'
+
+const maxLengthofField = maxLength(10)
 
 const NewMessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.newMessage}>
         <div className={s.newMessage__area}>
-          <Field placeholder={"New message"} component={"textarea"} name={"newMessage"} id={"newMessage"} className={s.message__textarea} />
+          <Field placeholder={"New message"} component={CustomField} 
+          name={"newMessage"} id={"newMessage"} className={s.message__textarea}
+          validate={[requiredField, maxLengthofField]} mytype="textarea"
+          />
         </div>
         <div className={s.newMessage__wrapper}>
           <button className={s.newMessage__button}>Send</button>
@@ -26,7 +33,7 @@ const NewMessageReduxForm = reduxForm({
 const Dialogs = (props) => {
 
   const onSubmit = (formData) => {
-    props.addMessage(formData.newMessage)
+    props.addNewMessage(formData.newMessage)
   }
 
   return (

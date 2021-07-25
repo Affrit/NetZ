@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api'
+import {reset} from 'redux-form'
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -59,7 +60,7 @@ const profileReducer = (state = initialState, action) => {
 }
 
 // ActionCreators:
-// убрать ActionCreator в названии
+
 export const addPostActionCreator = (postText) => ({ type: ADD_POST, postText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
@@ -94,6 +95,11 @@ export const updateUserStatus = (status) => (dispatch) => {
       }
       dispatch(setIsFetching(false))
     })
+}
+
+export const addNewPost = (postText) => (dispatch) => {
+  dispatch(addPostActionCreator(postText))
+  dispatch(reset('myForm'))
 }
 
 export default profileReducer

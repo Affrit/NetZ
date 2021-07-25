@@ -1,3 +1,5 @@
+import {reset} from 'redux-form';
+
 const ADD_MESSAGE = 'ADD-MESSAGE'
 
 let initialState = {
@@ -33,5 +35,10 @@ const dialogsReducer = (state = initialState, action) => {
 }
 
 export const addMesssageActionCreator = (newMessageText) => ({type: ADD_MESSAGE, newMessageText})
+
+export const addNewMessage = (newMessageText) => (dispatch) => {
+  dispatch(addMesssageActionCreator(newMessageText))
+  dispatch(reset('NewMessageForm'));  // requires form name
+}
 
 export default dialogsReducer

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { login } from '../../redux/authReducer'
+import CustomField from '../common/FormsControls/Textarea'
+import { requiredField } from '../../utils/validators'
 
 const LoginForm = (props) => {
   return (
@@ -11,15 +13,19 @@ const LoginForm = (props) => {
         <legend>Enter your registration data</legend>
         <div className={s.contacts__item}>
           <label className={s.contacts__label} htmlFor="email">E-mail</label>
-          <Field placeholder={"email"} component={"input"} name={"email"} id={"email"} className={s.contacts__input} />
+          <Field placeholder={"email"} component={CustomField} name={"email"}
+            id={"email"} className={s.contacts__input}
+            validate={[requiredField]} mytype="input"/>
         </div>
         <div className={s.contacts__item}>
           <label className={s.contacts__label} htmlFor="password">Password</label>
-          <Field placeholder={"password"} component={"input"}
-            name={"password"} type={"password"} id={"password"} className={s.contacts__input} />
+          <Field placeholder={"password"} component={CustomField}
+            name={"password"} type={"password"} id={"password"}
+            className={s.contacts__input} validate={[requiredField]} mytype="input"/>
         </div>
         <div className={s.contacts__item}>
-          <Field type={"checkbox"} component={"input"} name={"rememberMe"} id={"checkbox"} className={s.checkbox__input} />
+          <Field type={"checkbox"} component={'input'} name={"rememberMe"} 
+          id={"checkbox"} className={s.checkbox__input} mytype="input"/>
           <label className={s.checkbox__label} htmlFor="checkbox">Remember me</label>
         </div>
         <div className={s.button__wrapper}>
