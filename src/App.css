@@ -11,5 +11,10 @@
   background-color: darkgray;
   margin: 0 auto;
   max-width: 1200px;
+  height: 100vh;
 }
 
+.app-wrapper-content {
+  grid-area: cont;
+  background-color: darkviolet;
+}

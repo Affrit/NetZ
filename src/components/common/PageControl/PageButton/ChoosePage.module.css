@@ -1,0 +1,26 @@
+.choosePageTextarea {
+  display: inline;
+}
+
+.choosePageTextarea_hide {
+  display: none;
+}
+
+.choosePageButton {
+  display: inline;
+  border: black 2px solid;
+  border-radius: 10px;
+  background-color: rgb(195, 141, 159) ;
+  padding-right: 3px;
+  padding-left: 3px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.choosePageButton:hover {
+  background-color: palevioletred;
+}
+
+.choosePageButton_hide {
+  display: none;
+}

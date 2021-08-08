@@ -2,4 +2,43 @@
     grid-area: cont;
     background-color: darkviolet;
   }
-  
+
+.title {
+  margin: 10px;
+}
+
+.newPost {
+  margin: 10px;
+}
+
+.newPost__area {
+  margin-right: 20px;
+}
+
+.newPost__buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.newPost__button {
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.post__textarea {
+  resize: none;
+  height: auto;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 25px;
+  outline: none;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column-reverse;
+}

@@ -1,0 +1,84 @@
+.login__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 30px;
+}
+
+.form__contacts {
+  border: black 2px solid;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 400px;
+}
+
+.contacts__item {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.contacts__input {
+  width: 200px;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.contacts__label {
+  display: inline-block;
+  width: 100px;
+}
+
+.checkbox__input {
+  display: none;
+}
+
+.checkbox__label {
+  color: #000;
+  cursor: pointer;
+  line-height: 30px;
+  vertical-align: middle;
+  position: relative;
+  max-width: 400px;
+}
+
+.checkbox__label:before {
+  content: " ";
+  color: #fff;
+  display: inline-block;
+  font: 20px/30px FontAwesome;
+  margin-right: 30px;
+  position: relative;
+  text-align: center;
+  text-indent: 0px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(150deg, #c9e98e, #2ca50d);
+  vertical-align: middle;
+  border: 1px solid #000;
+}
+
+.checkbox__input:checked + .checkbox__label:before {
+  content: "\f00c";
+}
+
+.checkbox__input:disabled + .checkbox__label:before {
+  background: #eee;
+  color: #aaa;
+}
+
+.button__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  align-self: center;
+  width: 100px;
+  border-radius: 20px;
+  padding: 5px;
+}

@@ -1,0 +1,11 @@
+.loading {
+  font-weight: bold;
+  font-size: 56px;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.loading__img {
+  width: 394px;
+}

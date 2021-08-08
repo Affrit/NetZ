@@ -1,15 +1,31 @@
 import './App.css'
-import Profile from './components/Profile/Profile.js';
-import Header from './components/Header/Header.js';
-import Nav from './components/Nav/Nav.js';
+import News from './components/News/News';
+import Musik from './components/Musik/Musik';
+import Settings from './components/Settings/Settings';
+import { Route } from 'react-router-dom';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import NavContainer from './components/Nav/NavContainer';
+import UsersContainer from './components/Users/UsersContainer'
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/login/Login';
 
 function App() {
+  
   return (
-    <div className='app-wrapper'>
-      <Header />
-      <Nav />
-      <Profile />
-    </div>
+      <div className='app-wrapper'>
+        <HeaderContainer />
+        <NavContainer />
+        <div className='app-wrapper-content'>
+          <Route path='/profile/:userId?' render={ () => <ProfileContainer />} />
+          <Route path='/dialogs' render={ () => <DialogsContainer />} />
+          <Route path='/users' render={ () => <UsersContainer />} />
+          <Route path='/news' component={News} />
+          <Route path='/musik' component={Musik} />
+          <Route path='/settings' component={Settings} />
+          <Route path='/login' component={Login} />
+        </div>
+      </div>
   )
 }
 

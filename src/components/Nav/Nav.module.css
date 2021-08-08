@@ -1,4 +1,44 @@
 .nav {
     grid-area: nav;
     background-color: darksalmon;
+    padding: 10px;
   }
+
+.links {
+  margin-bottom: 5px;
+}
+
+.links a{
+  color: black;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: yellow;
+}
+
+.links a.active {
+  color: red;
+}
+
+.friends__wrapper{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.friends__title {
+  text-align: center;
+}
+
+.friends__container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.friends__item {
+  width: 33%;
+}
+
+
+
